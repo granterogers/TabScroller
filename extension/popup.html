@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TabScroller v1.0.0</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      width: 220px;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>TabScroller</h2>
+  <p>Hold right-click + scroll to switch tabs.</p>
+  <a id="optionsLink" style="color:#89b4fa;cursor:pointer">Open Settings</a>
+  <script>
+    document.getElementById('optionsLink').onclick = () => chrome.runtime.openOptionsPage();
+  </script>
+</body>
+</html>
