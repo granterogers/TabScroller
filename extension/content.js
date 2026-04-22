@@ -1,11 +1,12 @@
-// content.js â TabScroller v1.0.0
+// content.js â TabScroller v5.1.0
 
 (function () {
   'use strict';
 
   if (window.__tsCleanup) window.__tsCleanup();
 
-  var rightDown = window.__tsRightDown || false;
+  window.__tsRightDown = false;
+  var rightDown = false;
   var didScroll = false;
 
   function send(delta) {
@@ -23,7 +24,7 @@
   }
 
   function onMouseUp(e) {
-    if (e.button === 2 && e.isTrusted) {
+    if (e.button === 2) {
       rightDown = false;
       window.__tsRightDown = false;
       didScroll = false;
@@ -38,12 +39,16 @@
   }
 
   function onWheel(e) {
-    if (e.buttons === 2 || rightDown) {
-      didScroll = true;
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      send(e.deltaY);
+    if (e.buttons !== 2 && !rightDown) return;
+    if (e.buttons !== 2) {
+      rightDown = false;
+      window.__tsRightDown = false;
+      return;
     }
+    didScroll = true;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    send(e.deltaY);
   }
 
   var wopts = { passive: false, capture: true };
@@ -57,6 +62,7 @@
     window.removeEventListener('mouseup', onMouseUp, true);
     window.removeEventListener('contextmenu', onContextMenu, true);
     window.removeEventListener('wheel', onWheel, wopts);
+    window.__tsRightDown = false;
     window.__tsCleanup = null;
   };
 })();

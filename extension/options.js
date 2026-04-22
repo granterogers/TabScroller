@@ -1,4 +1,4 @@
-// options.js v1.0.0
+// options.js v5.1.0
 (function () {
   'use strict';
 
