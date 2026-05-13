@@ -1,4 +1,4 @@
-// content.js â TabScroller v5.1.0
+// content.js — TabScroller v5.1.0
 
 (function () {
   'use strict';

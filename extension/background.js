@@ -1,6 +1,4 @@
-// background.js â TabScroller v1.0.0
-// Hold right-click + scroll wheel to cycle through all tabs including pinned.
-// Keyboard shortcuts: Ctrl+Shift+Right (next), Ctrl+Shift+Left (previous).
+// background.js — TabScroller v5.1.0
 
 const VERSION = 'v5.1.0';
 
@@ -81,7 +79,7 @@ async function switchTab(fromTab, direction) {
     const i = direction === 'next' ? (fromTab.index + 1) % tabs.length : (fromTab.index - 1 + tabs.length) % tabs.length;
     const target = tabs[i];
     if (target) {
-      log('idx=' + fromTab.index + ' â idx=' + i + ' "' + (target.title||'').substring(0,25) + '"');
+      log('idx=' + fromTab.index + ' → idx=' + i + ' "' + (target.title||'').substring(0,25) + '"');
       await chrome.tabs.update(target.id, { active: true });
       chrome.scripting.executeScript({ target: { tabId: target.id }, func: () => window.addEventListener('contextmenu', e => e.preventDefault(), { once: true }) }).catch(() => {});
     }
@@ -91,7 +89,7 @@ async function switchTab(fromTab, direction) {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'GET_LOG') {
-    const header = 'TabScroller Debug Log â ' + VERSION + '\nGenerated: ' + new Date().toISOString() + '\nEntries: ' + logLines.length + '\n' + '-'.repeat(50) + '\n';
+    const header = 'TabScroller Debug Log — ' + VERSION + '\nGenerated: ' + new Date().toISOString() + '\nEntries: ' + logLines.length + '\n' + '-'.repeat(50) + '\n';
     sendResponse({ log: header + logLines.join('\n'), lines: logLines.length });
     return false;
   }
